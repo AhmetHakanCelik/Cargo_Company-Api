@@ -44,7 +44,7 @@ namespace CargoCompany.Migrations
 
                     b.HasKey("CarrierConfigurationId");
 
-                    b.ToTable("CarrierConfigurations");
+                    b.ToTable("CarrierConfigurations", (string)null);
                 });
 
             modelBuilder.Entity("CargoCompany.Models.Carriers", b =>
@@ -70,7 +70,7 @@ namespace CargoCompany.Migrations
 
                     b.HasKey("CarrierId");
 
-                    b.ToTable("Carriers");
+                    b.ToTable("Carriers", (string)null);
                 });
 
             modelBuilder.Entity("CargoCompany.Models.Orders", b =>
@@ -95,7 +95,7 @@ namespace CargoCompany.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 #pragma warning restore 612, 618
         }

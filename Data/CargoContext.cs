@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using CargoCompany.Models;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,7 @@
 using CargoCompany.Data;
+using CargoCompany.Repositories;
+using CargoCompany.Models;
+using CargoCompany.Controllers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +12,10 @@ builder.Services.AddDbContext<CargoContext>(options =>
     var ConnectionString = config.GetConnectionString("DefaultString");
     options.UseSqlServer(ConnectionString);
 });
+builder.Services.AddScoped<IRepository<Carriers>, CarrierRepository<Carriers>>();
+builder.Services.AddScoped<IRepository<Orders>, OrderRepository<Orders>>();
+builder.Services.AddScoped<IRepository<CarrierConfigurations>, ConfigurationRepository<CarrierConfigurations>>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

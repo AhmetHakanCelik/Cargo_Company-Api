@@ -8,9 +8,9 @@ namespace CargoCompany.Controllers
     [Route("api/[controller]")]
     public class ConfigurationController : ControllerBase
     {
-        private readonly IRepository<CarrierConfigurations> _configurationRepository;
+        private readonly IConfigRepository<CarrierConfigurations> _configurationRepository;
 
-        public ConfigurationController(IRepository<CarrierConfigurations> configurationRepository)
+        public ConfigurationController(IConfigRepository<CarrierConfigurations> configurationRepository)
         {
             _configurationRepository = configurationRepository;
         }

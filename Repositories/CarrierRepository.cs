@@ -1,6 +1,5 @@
-using System.ComponentModel;
-using System.Diagnostics;
 using CargoCompany.Data;
+using CargoCompany.Dto;
 using CargoCompany.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,9 +15,14 @@ public class CarrierRepository<T> : IRepository<T> where T : Carriers
     }
 
     public DbSet<T> Entity => _context.Set<T>();
-    public IEnumerable<T> GetAll()
+    public IEnumerable<CarrierDto<T>> GetAll()
     {
-        return Entity.ToList();
+        return Entity.Select(p => new CarrierDto<T>
+        {
+            CarrierName = p.CarrierName,
+            CarrierPlusDesiCost = p.CarrierPlusDesiCost,
+            CarrierConfigurationId = p.CarrierConfigurationId
+        }).ToList();
     }
 
     public async Task<T?> GetById(int id)

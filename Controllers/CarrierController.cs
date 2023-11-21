@@ -40,7 +40,7 @@ namespace CargoCompany.Controllers
             return CreatedAtAction("GetById", new { id = carrier.CarrierId }, carrier);
         }
 
-        [HttpPut]
+        [HttpPut("{CarrierName}")]
         public IActionResult UpdateCarrier([FromBody] Carriers updatedCarrier)
         {
             var result = _carrierRepository.Update(updatedCarrier);

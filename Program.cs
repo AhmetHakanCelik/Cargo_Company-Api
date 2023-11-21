@@ -13,8 +13,8 @@ builder.Services.AddDbContext<CargoContext>(options =>
     options.UseSqlServer(ConnectionString);
 });
 builder.Services.AddScoped<IRepository<Carriers>, CarrierRepository<Carriers>>();
-builder.Services.AddScoped<IRepository<Orders>, OrderRepository<Orders>>();
-builder.Services.AddScoped<IRepository<CarrierConfigurations>, ConfigurationRepository<CarrierConfigurations>>();
+builder.Services.AddScoped<IOrderRepository<Orders>, OrderRepository<Orders>>();
+builder.Services.AddScoped<IConfigRepository<CarrierConfigurations>, ConfigurationRepository<CarrierConfigurations>>();
 
 
 builder.Services.AddControllers();

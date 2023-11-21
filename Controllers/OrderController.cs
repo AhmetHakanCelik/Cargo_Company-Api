@@ -8,9 +8,9 @@ namespace CargoCompany.Controllers
     [Route("api/[controller]")]
     public class OrderController : ControllerBase
     {
-        private readonly IRepository<Orders> _orderRepository;
+        private readonly IOrderRepository<Orders> _orderRepository;
 
-        public OrderController(IRepository<Orders> orderRepository)
+        public OrderController(IOrderRepository<Orders> orderRepository)
         {
             _orderRepository = orderRepository;
         }

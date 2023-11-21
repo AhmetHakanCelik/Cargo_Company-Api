@@ -1,10 +1,11 @@
 using CargoCompany.Data;
+using CargoCompany.Dto;
 using CargoCompany.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CargoCompany.Repositories
 {
-    public class OrderRepository<T> : IRepository<T> where T : Orders
+    public class OrderRepository<T> : IOrderRepository<T> where T : Orders
     {
         private readonly CargoContext _context;
         public OrderRepository(CargoContext context)
@@ -18,9 +19,14 @@ namespace CargoCompany.Repositories
         }
 
         public DbSet<T> Entity => _context.Set<T>();
-        public IEnumerable<T> GetAll()
+        public IEnumerable<OrderDto<T>> GetAll()
         {
-            return Entity.ToList();
+            return Entity.Select(p => new OrderDto<T>
+            {
+                OrderCarrierCost = p.OrderCarrierCost,
+                OrderDate = p.OrderDate,
+                OrderDesi = p.OrderDesi
+            }).ToList();
         }
 
         public async Task<bool> AddAsync(T entity)

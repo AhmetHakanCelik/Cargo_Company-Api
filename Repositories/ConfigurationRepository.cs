@@ -1,10 +1,11 @@
 using CargoCompany.Data;
+using CargoCompany.Dto;
 using CargoCompany.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CargoCompany.Repositories
 {
-    public class ConfigurationRepository<T> : IRepository<T> where T : CarrierConfigurations
+    public class ConfigurationRepository<T> : IConfigRepository<T> where T : CarrierConfigurations
     {
         protected readonly CargoContext _context;
         public ConfigurationRepository(CargoContext context)
@@ -18,9 +19,14 @@ namespace CargoCompany.Repositories
         }
 
         public DbSet<T> Entity => _context.Set<T>();
-        public IEnumerable<T> GetAll()
+        public IEnumerable<ConfigurationDto<T>> GetAll()
         {
-            return _context.Set<T>().ToList();
+            return Entity.Select(p => new ConfigurationDto<T>
+            {
+                CarrierCost = p.CarrierCost,
+                CarrierMaxDesi = p.CarrierMaxDesi,
+                CarrierMinDesi = p.CarrierMinDesi
+            }).ToList();
         }
 
         public async Task<bool> AddAsync(T entity)
@@ -40,5 +46,7 @@ namespace CargoCompany.Repositories
             _context.Remove(entity);
             return _context.SaveChanges() > 0;
         }
+
+
     }
 }

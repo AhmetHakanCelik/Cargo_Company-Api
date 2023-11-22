@@ -1,9 +1,11 @@
 using CargoCompany.Models;
 using CargoCompany.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CargoCompany.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CarrierController : ControllerBase
@@ -26,6 +28,10 @@ namespace CargoCompany.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var p = await _carrierRepository.GetById(id);
+            if (p == null)
+            {
+                return NotFound();
+            }
             return Ok(p);
         }
 

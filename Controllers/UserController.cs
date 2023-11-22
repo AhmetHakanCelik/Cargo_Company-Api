@@ -77,7 +77,8 @@ namespace CargoCompany.Controllers
                     }
                     ),
                 Expires = DateTime.UtcNow.AddDays(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Issuer = "Ahmet"
             };
 
             var token = tokenHandler.CreateToken(tokenDescripter);

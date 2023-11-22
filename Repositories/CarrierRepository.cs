@@ -1,6 +1,7 @@
 using CargoCompany.Data;
 using CargoCompany.Dto;
 using CargoCompany.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace CargoCompany.Repositories;
@@ -28,7 +29,6 @@ public class CarrierRepository<T> : IRepository<T> where T : Carriers
     public async Task<T?> GetById(int id)
     {
         return await Entity.FirstOrDefaultAsync(p => p.CarrierId == id);
-
     }
 
     public async Task<bool> AddAsync(T entity)

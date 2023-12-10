@@ -4,6 +4,7 @@ using CargoCompany.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CargoCompany.Migrations
 {
     [DbContext(typeof(CargoContext))]
-    partial class CargoContextModelSnapshot : ModelSnapshot
+    [Migration("20231210182007_NewMigration")]
+    partial class NewMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,8 +151,6 @@ namespace CargoCompany.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CarrierConfigurationId");
-
-                    b.HasIndex("CarrierId");
 
                     b.ToTable("CarrierConfigurations");
                 });
@@ -309,17 +310,6 @@ namespace CargoCompany.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CargoCompany.Models.CarrierConfigurations", b =>
-                {
-                    b.HasOne("CargoCompany.Models.Carriers", "Carriers")
-                        .WithMany("CarrierConfigurations")
-                        .HasForeignKey("CarrierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Carriers");
-                });
-
             modelBuilder.Entity("CargoCompany.Models.Orders", b =>
                 {
                     b.HasOne("CargoCompany.Models.Carriers", "Carriers")
@@ -384,8 +374,6 @@ namespace CargoCompany.Migrations
 
             modelBuilder.Entity("CargoCompany.Models.Carriers", b =>
                 {
-                    b.Navigation("CarrierConfigurations");
-
                     b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618

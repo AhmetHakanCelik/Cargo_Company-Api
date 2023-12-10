@@ -12,4 +12,6 @@ public class Carriers
     public int CarrierPlusDesiCost { get; set; }
     [Column(TypeName = "decimal(10,4)")]
     public int CarrierConfigurationId { get; set; }
+    public required ICollection<Orders> Orders { get; set; }
+    public required ICollection<CarrierConfigurations> CarrierConfigurations { get; set; }
 }

@@ -13,4 +13,5 @@ public class CargoContext : IdentityDbContext<AppUser, AppRole, int>
     {
 
     }
+
 }

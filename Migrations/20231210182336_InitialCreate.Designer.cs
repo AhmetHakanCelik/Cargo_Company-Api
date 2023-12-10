@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CargoCompany.Migrations
 {
     [DbContext(typeof(CargoContext))]
-    [Migration("20231121094202_IdentityMigrations")]
-    partial class IdentityMigrations
+    [Migration("20231210182336_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -152,6 +152,8 @@ namespace CargoCompany.Migrations
 
                     b.HasKey("CarrierConfigurationId");
 
+                    b.HasIndex("CarrierId");
+
                     b.ToTable("CarrierConfigurations");
                 });
 
@@ -201,6 +203,8 @@ namespace CargoCompany.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("OrderId");
+
+                    b.HasIndex("CarrierId");
 
                     b.ToTable("Orders");
                 });
@@ -308,6 +312,28 @@ namespace CargoCompany.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("CargoCompany.Models.CarrierConfigurations", b =>
+                {
+                    b.HasOne("CargoCompany.Models.Carriers", "Carriers")
+                        .WithMany("CarrierConfigurations")
+                        .HasForeignKey("CarrierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Carriers");
+                });
+
+            modelBuilder.Entity("CargoCompany.Models.Orders", b =>
+                {
+                    b.HasOne("CargoCompany.Models.Carriers", "Carriers")
+                        .WithMany("Orders")
+                        .HasForeignKey("CarrierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Carriers");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("CargoCompany.Models.AppRole", null)
@@ -357,6 +383,13 @@ namespace CargoCompany.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CargoCompany.Models.Carriers", b =>
+                {
+                    b.Navigation("CarrierConfigurations");
+
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
